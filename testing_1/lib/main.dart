@@ -1,4 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Demo de flutter'),
     );
   }
 }
@@ -48,18 +52,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -95,21 +84,86 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Container(
+              width: 300,
+              height: 300,
+              child: Image.asset(
+                'assets/transparent-cirno.png',
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 50,
+                right: 50,
+                bottom: 10,
+              ),
+              child: TextFormField(
+                controller: _usernameController,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                ),
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  hintText: 'Input username',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 50,
+                right: 50,
+                bottom: 10,
+              ),
+              child: TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                ),
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  hintText: 'Input password',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.3,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                color: Colors.amber,
+              ),
+              child: MaterialButton(
+                onPressed: () {
+                  print('Username: ' + _usernameController.text);
+                  print('Pasword: ' + _passwordController.text);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  );
+                },
+                child: Text('Press me! :)'),
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
